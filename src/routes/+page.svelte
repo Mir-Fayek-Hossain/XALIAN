@@ -24,7 +24,6 @@ const submitForm = async () => {
         }
     });
     const data = await submit.json();
-    console.log(data);
 };
 </script>
 

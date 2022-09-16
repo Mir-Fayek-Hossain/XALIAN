@@ -3,7 +3,6 @@
 	export let data;
 	let products = data?.products?.payload?.data;
 	let catelog = data?.catelog;
-	console.log(products);
 
 	let cmsCaty: any;
 	for (let i = 0; i < cmsCategory.length; i++) {
