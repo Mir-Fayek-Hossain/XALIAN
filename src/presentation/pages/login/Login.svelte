@@ -20,14 +20,10 @@
 </div>
 <style>
     .formContainer {
-		position: absolute;
+		/* position: absolute;
 		top: 40%;
 		left: 50%;
-		transform: translate(-50%, -50%);
-		padding: 70px 30px;
-		background: white;
-		border-radius: 20px;
-		box-shadow: 0 5px 25px black;
+		transform: translate(-50%, -50%); */
 	}
 	.formContainer h2 {
 		padding-left: 10px;

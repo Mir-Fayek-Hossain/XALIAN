@@ -49,3 +49,9 @@
 		max-width: 200px;
 	}
 }
+.cross_btn {
+	transition: transform 0.5s;
+}
+.cross_btn:hover {
+	transform: rotate(180deg);
+}

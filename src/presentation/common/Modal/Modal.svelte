@@ -1,26 +1,36 @@
 <script type="ts">
-	import HeroIcon from "../HeroIcon/HeroIcon.svelte";
-	import { HeroIconOutLined } from "../HeroIcon/HeroIconOutLined";
+	import HeroIcon from '../HeroIcon/HeroIcon.svelte';
+	import { HeroIconOutLined } from '../HeroIcon/HeroIconOutLined';
 
-
-	 export let modalVisibility:false;
+	export let onClose:any;
+	function modalCloseHandle(){
+		onClose()
+	}
 </script>
 
 <div class="modal_container">
-	<button class="cross_btn">
-		<HeroIcon icon={HeroIconOutLined.xCircle} class="black mx-2" svgAnimation={true} />
+	<button class="cross_btn" on:click={modalCloseHandle}>
+		<HeroIcon icon={HeroIconOutLined.x} class="" svgAnimation={false} />
 	</button>
-	<slot/>
+	<div class="modal_content">
+		<slot />
+	</div>
 </div>
-<div class="modal_overlay" on:click={()=>modalVisibility=false}/>
+<div class="modal_overlay" on:click={modalCloseHandle} />
 
 <style>
-	.cross_btn{
-
+	.cross_btn {
+		float: right;
+		@apply bg-gray-300 p-1  rounded-full m-2 text-gray-600
+	}
+	.modal_content {
+		padding: 40px 30px;
 	}
 	.modal_container {
-		z-index: 999; 
-		 @apply bg-red-400  absolute lg:fixed  h-full lg:h-auto  left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2; 
+		background: white;
+		border-radius: 20px;
+		z-index: 999;
+		@apply fixed  h-auto  left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2;
 	}
 	.modal_overlay {
 		z-index: 960;
