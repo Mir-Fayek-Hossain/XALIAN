@@ -119,7 +119,7 @@
 		>
 			<div class="p-10">
 				{#each hoveredCategory.children as category, index}
-					<li in:fly={{ x: 20, delay: 400 + index * 200 }} class="text-4xl mb-10 ">
+					<li in:fly={{ x: 20, delay: 400 + index * 200 }} class="text-4xl mb-10 " on:click={()=>{hoveredCategory=""}}>
 						<span class="underLine fromLeft w-fit">
 							{category?.name}
 						</span>
