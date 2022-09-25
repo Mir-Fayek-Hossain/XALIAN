@@ -52,7 +52,7 @@ const submitForm = async () => {
 <div class="content" >
     <ul class="header-font " data-aos="slide-right" data-aos-duration="2000" data-delay="1000">
         {#each category as item}
-            <a href={`/${item?.slug}/`} class="list flex ">
+            <a href={`/${item?.slug}/`} class="list flex w-fit">
                 <li
                     on:mouseenter={() => {
                         hoveredCategory = item?.name;
