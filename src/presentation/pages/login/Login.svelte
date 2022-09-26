@@ -1,25 +1,74 @@
+<script type="ts">
+	let phoneNumber: String = '01874606022';
+	let OTP: String;
+	let result: any = null;
+	async function submitTel() {
+		const res = await fetch('https://api.reshop.one/v2/web/auth/otp/send', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				phoneNumber,
+				sendSms: false
+			})
+		});
+
+		const json = await res.json();
+		result = json?.payload;
+		OTP = json?.payload?.otp;
+	}
+	async function submitOtp() {
+		const res = await fetch('https://api.reshop.one/v2/web/auth/otp/verify', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				phoneNumber,
+				otp: OTP
+			})
+		});
+
+		const json = await res.json();
+		result = JSON.stringify(json);
+	}
+</script>
+
 <div class=" formContainer">
-    <h2>XALIAN</h2>
-    <form action="">
-        <div class="inputBox">
-            <input type="text" required />
-            <span>User Name</span>
-        </div>
-        <div class="inputBox">
-            <input type="text" required />
-            <span>Password</span>
-        </div>
-        <div class="inputBox">
-            <input type="text" required />
-            <span>Confirm Password</span>
-        </div>
-        <div class="inputBox flex justify-center">
-            <input type="submit" value="Sign in" />
-        </div>
-    </form>
+	<h2>XALIAN</h2>
+	{phoneNumber}
+	<form on:submit|preventDefault={submitTel}>
+		<input type="tel" bind:value={phoneNumber} />
+		<button type="submit">Submit</button>
+	</form>
+	{OTP}
+	<form on:submit|preventDefault={submitOtp}>
+		<input type="tel" bind:value={OTP} />
+		<button type="submit">Submit</button>
+	</form>
+	{result}
+	<form action="">
+		<div class="inputBox">
+			<input type="text" required />
+			<span>User Name</span>
+		</div>
+		<div class="inputBox">
+			<input type="text" required />
+			<span>Password</span>
+		</div>
+		<div class="inputBox">
+			<input type="text" required />
+			<span>Confirm Password</span>
+		</div>
+		<div class="inputBox flex justify-center">
+			<input type="submit" value="Sign in" />
+		</div>
+	</form>
 </div>
+
 <style>
-    .formContainer {
+	.formContainer {
 		/* position: absolute;
 		top: 40%;
 		left: 50%;
