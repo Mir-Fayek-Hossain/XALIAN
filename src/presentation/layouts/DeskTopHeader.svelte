@@ -8,7 +8,7 @@
 	import HeroIcon from '../common/HeroIcon/HeroIcon.svelte';
 	import { HeroIconOutLined } from '../common/HeroIcon/HeroIconOutLined';
 	import Modal from '../common/Modal/Modal.svelte';
-	import Login from '../pages/login/Login.svelte';
+	import LoginContainer from '../pages/login/LoginContainer.svelte';
 	onMount(() => {
 		AOS.init();
 	});
@@ -137,7 +137,7 @@
 				modalVisibility = false;
 			}}
 		>
-			<Login />
+			<LoginContainer />
 		</Modal>
 	{/if}
 </nav>

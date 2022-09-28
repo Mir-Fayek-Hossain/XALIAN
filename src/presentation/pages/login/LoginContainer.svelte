@@ -1,6 +1,9 @@
 <script type="ts">
-	let phoneNumber: String = '01874606022';
-	let OTP: String;
+	import GetOtp from "./components/GetOTP.svelte";
+	import VerifyOtp from "./components/VerifyOTP.svelte";
+
+	let phoneNumber: string = '01874606022';
+	let OTP: string;
 	let result: any = null;
 	async function submitTel() {
 		const res = await fetch('https://api.reshop.one/v2/web/auth/otp/send', {
@@ -10,6 +13,7 @@
 			},
 			body: JSON.stringify({
 				phoneNumber,
+				// if the project is running in production then we need to set the send Sms true
 				sendSms: false
 			})
 		});
@@ -38,16 +42,19 @@
 <div class=" formContainer">
 	<h2>XALIAN</h2>
 	{phoneNumber}
+	<GetOtp {submitTel} {phoneNumber}/>
 	<form on:submit|preventDefault={submitTel}>
 		<input type="tel" bind:value={phoneNumber} />
 		<button type="submit">Submit</button>
 	</form>
 	{OTP}
+	<VerifyOtp/>
 	<form on:submit|preventDefault={submitOtp}>
 		<input type="tel" bind:value={OTP} />
 		<button type="submit">Submit</button>
 	</form>
 	{result}
+	{#if !OTP}
 	<form action="">
 		<div class="inputBox">
 			<input type="text" required />
@@ -65,6 +72,7 @@
 			<input type="submit" value="Sign in" />
 		</div>
 	</form>
+	{/if}
 </div>
 
 <style>
