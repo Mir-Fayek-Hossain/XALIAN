@@ -5,7 +5,10 @@
 	let phoneNumber: string = '01874606022';
 	let OTP: string;
 	let result: any = null;
+	let otpSent:boolean=false;
+	let isloading:boolean=false;
 	async function submitTel() {
+		isloading=true;
 		const res = await fetch('https://api.reshop.one/v2/web/auth/otp/send', {
 			method: 'POST',
 			headers: {
@@ -17,12 +20,15 @@
 				sendSms: false
 			})
 		});
-
+		isloading=false;
 		const json = await res.json();
 		result = json?.payload;
 		OTP = json?.payload?.otp;
+		otpSent=true;
 	}
 	async function submitOtp() {
+		
+		isloading=true;
 		const res = await fetch('https://api.reshop.one/v2/web/auth/otp/verify', {
 			method: 'POST',
 			headers: {
@@ -36,56 +42,27 @@
 
 		const json = await res.json();
 		result = JSON.stringify(json);
+		isloading=false;
 	}
+	
+	let user = "";
 </script>
 
-<div class=" formContainer">
 	<h2>XALIAN</h2>
-	{phoneNumber}
-	<GetOtp {submitTel} {phoneNumber}/>
-	<form on:submit|preventDefault={submitTel}>
-		<input type="tel" bind:value={phoneNumber} />
-		<button type="submit">Submit</button>
-	</form>
-	{OTP}
-	<VerifyOtp/>
-	<form on:submit|preventDefault={submitOtp}>
-		<input type="tel" bind:value={OTP} />
-		<button type="submit">Submit</button>
-	</form>
-	{result}
-	{#if !OTP}
-	<form action="">
-		<div class="inputBox">
-			<input type="text" required />
-			<span>User Name</span>
-		</div>
-		<div class="inputBox">
-			<input type="text" required />
-			<span>Password</span>
-		</div>
-		<div class="inputBox">
-			<input type="text" required />
-			<span>Confirm Password</span>
-		</div>
-		<div class="inputBox flex justify-center">
-			<input type="submit" value="Sign in" />
-		</div>
-	</form>
+	{#if otpSent}
+	<VerifyOtp bind:isloading={isloading} {submitOtp} bind:OTP={OTP} {phoneNumber}/>
+	{:else}
+	<GetOtp bind:isloading={isloading} {submitTel} bind:phoneNumber={phoneNumber}/>
 	{/if}
-</div>
+	
 
 <style>
-	.formContainer {
-		/* position: absolute;
-		top: 40%;
-		left: 50%;
-		transform: translate(-50%, -50%); */
-	}
-	.formContainer h2 {
+
+ h2 {
 		padding-left: 10px;
 		margin-bottom: 30px;
 		border-left: 5px solid rgb(0, 0, 0);
+		@apply font-bold text-xl
 	}
 	.formContainer .inputBox {
 		position: relative;

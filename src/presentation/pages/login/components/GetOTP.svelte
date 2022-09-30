@@ -2,26 +2,22 @@
 <script type="ts">
     // your script goes here
     export let submitTel:any
-    export let phoneNumber:string
+    export let phoneNumber:string=""
+	export let isloading:boolean=false
 </script>
-<button on:click={submitTel}>as</button>
-<form action="">
+
+<div class=" formContainer">
+<form on:submit|preventDefault={submitTel}>
     <div class="inputBox">
         <input type="tel" required bind:value={phoneNumber}/>
-        <span>User Name</span>
+        <span>Mobile Number</span>
     </div>
-    <div class="inputBox">
-        <input type="text" required />
-        <span>Password</span>
-    </div>
-    <div class="inputBox">
-        <input type="text" required />
-        <span>Confirm Password</span>
-    </div>
+
     <div class="inputBox flex justify-center">
-        <input type="submit" value="Sign in" />
+        <input type="submit"  value={isloading?"loading...":"Continue"} />
     </div>
 </form>
+</div>
 <style>
 .formContainer {
 		/* position: absolute;
