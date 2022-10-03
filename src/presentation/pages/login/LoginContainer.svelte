@@ -1,4 +1,5 @@
 <script type="ts">
+	import { authApiService } from "$src/data/api/auth.apiService";
 	import GetOtp from "./components/GetOTP.svelte";
 	import VerifyOtp from "./components/VerifyOTP.svelte";
 
@@ -21,6 +22,8 @@
 			})
 		});
 		isloading=false;
+		console.log(res.json());
+		
 		const json = await res.json();
 		result = json?.payload;
 		OTP = json?.payload?.otp;
@@ -46,9 +49,17 @@
 	}
 	
 	let user = "";
+	function gt(){
+		authApiService.getOtp({
+			phoneNumber:"01874606022",
+				sendSms: false
+			})
+	}
 </script>
 
-	<h2>XALIAN</h2>
+	<h2 on:click={()=>{
+		gt()
+	}}>XALIAN</h2>
 	{#if otpSent}
 	<VerifyOtp bind:isloading={isloading} {submitOtp} bind:OTP={OTP} {phoneNumber}/>
 	{:else}
