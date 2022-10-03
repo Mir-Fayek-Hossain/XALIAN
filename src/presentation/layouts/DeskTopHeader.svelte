@@ -137,7 +137,7 @@
 				modalVisibility = false;
 			}}
 		>
-			<LoginContainer />
+			<LoginContainer bind:modalVisibility={modalVisibility}/>
 		</Modal>
 	{/if}
 </nav>

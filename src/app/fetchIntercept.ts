@@ -22,8 +22,6 @@ class _CustomFetch {
 			return baseURL;
 		} else {
 			const response = await fetch(`${baseURL + url}`,config);
-			console.log(config);
-
 			return await response.json();
 		}
 	};
