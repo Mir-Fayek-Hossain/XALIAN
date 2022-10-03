@@ -1,10 +1,12 @@
 <script type="ts">
+	import { isAuthenticated } from '$src/presentation/store/baseStore';
 	import HeroIcon from '../HeroIcon/HeroIcon.svelte';
 	import { HeroIconOutLined } from '../HeroIcon/HeroIconOutLined';
 
 	export let onClose:any;
 	function modalCloseHandle(){
 		onClose()
+		isAuthenticated.update(n => false);
 	}
 </script>
 

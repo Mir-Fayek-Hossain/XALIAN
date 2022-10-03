@@ -9,6 +9,7 @@
 	import { HeroIconOutLined } from '../common/HeroIcon/HeroIconOutLined';
 	import Modal from '../common/Modal/Modal.svelte';
 	import LoginContainer from '../pages/login/LoginContainer.svelte';
+	import { isAuthenticated } from '../store/baseStore';
 	onMount(() => {
 		AOS.init();
 	});
@@ -131,7 +132,7 @@
 			</div>
 		</div>
 	{/if}
-	{#if modalVisibility}
+	{#if $isAuthenticated|| modalVisibility}
 		<Modal
 			onClose={() => {
 				modalVisibility = false;
