@@ -5,6 +5,7 @@
 	import GetOtp from './components/GetOTP.svelte';
 	import VerifyOtp from './components/VerifyOTP.svelte';
 	export let modalVisibility: boolean = true;
+	export let user
 	let phoneNumber: string = '01874606022';
 	let OTP: string;
 	let result: any = null;
@@ -30,6 +31,7 @@
 		if (response.statusCode == 200) {
 			setCookie(`${ENV.SESSION_KEY}token`, response?.payload?.token, 1);
 			// await goto('/dashboard');
+			user="a"
 			modalVisibility = false;
 		} else {
 			otpSent = false;
@@ -38,14 +40,6 @@
 		isloading = false;
 	}
 
-	let user = '';
-	async function gt() {
-		const response = await authApiService.getOtp({
-			phoneNumber: phoneNumber,
-			sendSms: false
-		});
-		console.log(response);
-	}
 </script>
 
 <h2>XALIAN</h2>
