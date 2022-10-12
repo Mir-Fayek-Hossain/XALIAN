@@ -1,8 +1,9 @@
-import { CustomFetch } from './../../app/fetchIntercept';
+import { CustomFetch } from "$src/app/fetchIntercept";
+const PREFIX="/web/auth/";
+
 export const authApiService = {
 	getOtp: async (payload: any) => {
-		const response = await CustomFetch.post('/web/auth/otp/send', {
-			method: 'POST',
+		const response = await CustomFetch.post(`${PREFIX}otp/send`, {
 			body: JSON.stringify(payload),
 			headers: {
 				// Authorization: '',
@@ -13,8 +14,7 @@ export const authApiService = {
 		return response;
 	},
 	verifyOtp: async (payload: any) => {
-		const response = await CustomFetch.post('/web/auth/otp/verify', {
-			method: 'POST',
+		const response = await CustomFetch.post(`${PREFIX}otp/verify`, {
 			body: JSON.stringify(payload),
 			headers: {
 				// Authorization: '',

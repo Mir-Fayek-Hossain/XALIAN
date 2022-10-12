@@ -21,6 +21,7 @@ class _CustomFetch {
 			// }
 			return baseURL;
 		} else {
+			config["method"]=await "POST";	
 			const response = await fetch(`${baseURL + url}`,config);
 			return await response.json();
 		}

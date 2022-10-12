@@ -165,7 +165,7 @@
 					modalVisibility = false;
 				}}
 			>
-				<LoginContainer bind:modalVisibility />
+				<LoginContainer bind:modalVisibility {authCheck}/>
 			</Modal>
 		</div>
 	{/if}
