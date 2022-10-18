@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { subscriptionApiService } from '$src/data/api/subscription.apiService';
 	import HeroIcon from '$src/presentation/common/HeroIcon/HeroIcon.svelte';
 	import { HeroIconOutLined } from '$src/presentation/common/HeroIcon/HeroIconOutLined';
 	import AOS from 'aos';
@@ -14,16 +15,10 @@
 	let hoveredCategory = 'Home';
 	let email: any;
 	const submitForm = async () => {
-		const submit = await fetch('https://api.reshop.one/v2/web/subscriptions/email', {
-			method: 'POST',
-			body: JSON.stringify({
-				email
-			}),
-			headers: {
-				'Content-Type': 'application/json'
-			}
+		subscriptionApiService.subscribe({
+			email
 		});
-		const data = await submit.json();
+		email=""
 	};
 </script>
 

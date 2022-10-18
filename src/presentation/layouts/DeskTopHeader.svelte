@@ -14,6 +14,7 @@
 	import { isAuthenticated } from '../store/baseStore';
 	onMount(() => {
 		AOS.init();
+		authCheck()
 	});
 	function authCheck(){
 		

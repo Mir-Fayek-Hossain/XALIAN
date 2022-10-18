@@ -10,7 +10,8 @@ export const authController = {
 		} else {
 			return false;
 		}
-	},logout:()=>{
+	},
+	logout:()=>{
 		eraseCookie(`${ENV.SESSION_KEY}token`)
     }
 };
