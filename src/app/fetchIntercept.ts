@@ -26,8 +26,22 @@ class _CustomFetch {
 			return await response.json();
 		}
 	};
-	get = async () => {
-		return baseURL;
+	get = async (url: string, config?: Config) => {
+		if (config?.headers?.Authorization) {
+			// const bearerToken=await config?.headers?.Authorization?.split(" ");
+			// const token = bearerToken[1];
+			// if(token){
+			//     const validToken=await this.checkToken();
+			//     if(validToken){
+
+			//     }
+			// }
+			return baseURL;
+		} else {
+			config["method"]=await "GET";	
+			const response = await fetch(`${baseURL + url}`,config);
+			return await response.json();
+		}
 	};
 	private checkToken = async () => {
 		const userInfo = JSON.parse(getCookie(ENV.SESSION_KEY) as string);

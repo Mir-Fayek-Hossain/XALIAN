@@ -15,3 +15,7 @@ export async function load({ params }) {
 	// return { products, catelog };
 	categoryApiService.category(params)
 }
+
+
+// https://api.reshop.one/v2/web/search/products?surface=women-197&page=1&take=50&sort=new
+//https://api.reshop.one/v2/web/search/products?surface=women-197-ethnic-and-fusion-dresses-693-kurtis-766&page=1&take=50&sort=new

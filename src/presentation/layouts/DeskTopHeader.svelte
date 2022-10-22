@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { surfaceCatalogApiService } from '$src/data/api/surfaceCatalog.apiService';
 	import AOS from 'aos';
 	import 'aos/dist/aos.css';
 	import { onMount } from 'svelte';
@@ -12,12 +13,13 @@
 	import Modal from '../common/Modal/Modal.svelte';
 	import LoginContainer from '../pages/login/LoginContainer.svelte';
 	import { isAuthenticated } from '../store/baseStore';
-	onMount(() => {
+	onMount(async () => {
 		AOS.init();
 		authCheck()
+		let d=await surfaceCatalogApiService.catalogs();
+		console.log(d);
 	});
 	function authCheck(){
-		
 		user = authController.userInfo();
 		console.log(user);
 	}
@@ -184,10 +186,7 @@
 		transition: 0.3s ease-in-out;
 		@apply cursor-pointer;
 	}
-	.active {
-		transition: 0.4s ease-in-out;
-		@apply border-b-2 border-white;
-	}
+
 	nav {
 		transition: 0.2s ease-in-out;
 	}
