@@ -6,6 +6,7 @@
 import { categoryApiService } from "$src/data/api/category.apiService";
 
 // });
+let response
 export async function load({ params }) {
 	// const url = `https://fakestoreapi.com/products/category/${params.category}`;
 	// const url ="https://api.reshop.one/v2/web/search/products?surface=women-197&page=1&take=50&sort=new";
@@ -13,7 +14,11 @@ export async function load({ params }) {
 	// const products = await res.json();
 	// const catelog = params.category;
 	// return { products, catelog };
-	categoryApiService.category(params)
+	response = await categoryApiService.category();
+	return{
+		response:response
+	}
+	
 }
 
 

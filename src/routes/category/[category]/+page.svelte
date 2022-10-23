@@ -1,7 +1,9 @@
 <script lang="ts">
 	import cmsCategory from '$src/lib/cmsCategory';
+	import ProductCard from '$src/presentation/ProductCard.svelte';
 	export let data;
-	let products = data?.products?.payload?.data;
+	let products=data.response.payload.data;
+	
 	// let catelog = data?.catelog;
 // console.log(catelog);
 
@@ -38,14 +40,7 @@
 		<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 bg-gray-300">
 			{#each products as product, index}
 				{#if index > 3}
-					<div>
-						<a href={`/${product.id}`} class="bg-white desc card-img ">
-							<img class="  max-h-96 w-full object-cover" src={product?.images[0]} alt="" />
-							<p class="eclipse">{product?.name}</p>
-							<p>$ {product?.new_price}</p>
-						</a>
-						<button  class=" bg-red-300">Add to cart</button>
-					</div>
+					<ProductCard {product}/>
 				{/if}
 			{/each}
 		</div>

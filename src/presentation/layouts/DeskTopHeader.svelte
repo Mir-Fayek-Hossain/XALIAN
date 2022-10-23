@@ -13,11 +13,12 @@
 	import Modal from '../common/Modal/Modal.svelte';
 	import LoginContainer from '../pages/login/LoginContainer.svelte';
 	import { isAuthenticated } from '../store/baseStore';
+	let categoryResponse;
 	onMount(async () => {
 		AOS.init();
 		authCheck()
-		let d=await surfaceCatalogApiService.catalogs();
-		console.log(d);
+		categoryResponse=await surfaceCatalogApiService.catalogs();
+		
 	});
 	function authCheck(){
 		user = authController.userInfo();
