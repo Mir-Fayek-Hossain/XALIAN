@@ -1,4 +1,3 @@
-// https://api.reshop.one/v2/web/surface-catalogs
 import { CustomFetch } from '$src/app/fetchIntercept';
 const PREFIX = '/web/surface-catalogs';
 
