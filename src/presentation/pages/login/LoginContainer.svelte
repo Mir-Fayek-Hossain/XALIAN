@@ -1,68 +1,60 @@
 <script type="ts">
-	import GetOtp from "./components/GetOTP.svelte";
-	import VerifyOtp from "./components/VerifyOTP.svelte";
-
+	import { setCookie } from '$src/app/cookie';
+	import { authApiService } from '$src/data/api/auth.apiService';
+	import { ENV } from '$src/environment';
+	import GetOtp from './components/GetOTP.svelte';
+	import VerifyOtp from './components/VerifyOTP.svelte';
+	export let modalVisibility: boolean = true;
+	export let authCheck: ()=> void;
 	let phoneNumber: string = '01874606022';
 	let OTP: string;
 	let result: any = null;
-	let otpSent:boolean=false;
-	let isloading:boolean=false;
+	let otpSent: boolean = false;
+	let isloading: boolean = false;
 	async function submitTel() {
-		isloading=true;
-		const res = await fetch('https://api.reshop.one/v2/web/auth/otp/send', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				phoneNumber,
-				// if the project is running in production then we need to set the send Sms true
-				sendSms: false
-			})
+		isloading = true;
+		const response = await authApiService.getOtp({
+			phoneNumber: phoneNumber,
+			sendSms: false
 		});
-		isloading=false;
-		const json = await res.json();
-		result = json?.payload;
-		OTP = json?.payload?.otp;
-		otpSent=true;
+		isloading = false;
+		result = response.payload;
+		OTP = result.otp;
+		otpSent = true;
 	}
 	async function submitOtp() {
-		
-		isloading=true;
-		const res = await fetch('https://api.reshop.one/v2/web/auth/otp/verify', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				phoneNumber,
-				otp: OTP
-			})
+		isloading = true;
+		const response = await authApiService.verifyOtp({
+			phoneNumber,
+			otp: OTP
 		});
-
-		const json = await res.json();
-		result = JSON.stringify(json);
-		isloading=false;
+		if (response.statusCode == 200) {
+			setCookie(`${ENV.SESSION_KEY}token`, response?.payload?.token, 1);
+			// await goto('/dashboard');
+			authCheck()
+			modalVisibility = false;
+		} else {
+			otpSent = false;
+		}
+		result = response?.payload;
+		isloading = false;
 	}
-	
-	let user = "";
+
 </script>
 
-	<h2>XALIAN</h2>
-	{#if otpSent}
-	<VerifyOtp bind:isloading={isloading} {submitOtp} bind:OTP={OTP} {phoneNumber}/>
-	{:else}
-	<GetOtp bind:isloading={isloading} {submitTel} bind:phoneNumber={phoneNumber}/>
-	{/if}
-	
+<h2>XALIAN</h2>
+{#if otpSent}
+	<VerifyOtp bind:isloading {submitOtp} bind:OTP {phoneNumber} />
+{:else}
+	<GetOtp bind:isloading {submitTel} bind:phoneNumber />
+{/if}
 
 <style>
-
- h2 {
+	h2 {
 		padding-left: 10px;
 		margin-bottom: 30px;
 		border-left: 5px solid rgb(0, 0, 0);
-		@apply font-bold text-xl
+		@apply font-bold text-xl;
 	}
 	.formContainer .inputBox {
 		position: relative;
